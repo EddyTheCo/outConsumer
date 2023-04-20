@@ -5,14 +5,16 @@
 
 using namespace qiota;
 
-void OutConsumer::consume(std::vector<qiota::Node_output>  outs, QJsonObject address, QVector<quint32> subpath,QString amountneedit)
+void OutConsumer::consume(std::vector<qiota::Node_output>  outs, const QJsonValue & address, QVector<quint32> subpath,QString amountneedit)
 {
     const quint64 amount_need_it=amountneedit.toULongLong();
     const auto addrptr=qblocks::Address::from_(address);
 
+
     auto bundle= (addrptr->type()==qblocks::Address::Ed25519_typ)?Account::get_addr(subpath):AddressBundle(addrptr);
 
     bundle.consume_outputs(outs,amount_need_it);
+
 
     QJsonArray aliasad;
     for(const auto& v: bundle.alias_outputs)
@@ -35,6 +37,6 @@ void OutConsumer::consume(std::vector<qiota::Node_output>  outs, QJsonObject add
     var.insert("alias",aliasad);
     var.insert("nft",nftad);
     var.insert("foundry",foundryid);
-
+    var.insert("amount",QString::number(bundle.amount));
     emit finish(var,bundle);
 }
