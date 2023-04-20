@@ -20,7 +20,7 @@ class OutConsumer : public QObject
 public:
     OutConsumer(QObject *parent = nullptr):QObject(parent){};
 
-    Q_INVOKABLE void consume(std::vector<qiota::Node_output>  outs, QJsonObject address, QVector<quint32> subpath={0,0,0},QString amountneedit="0");
+    Q_INVOKABLE void consume(std::vector<qiota::Node_output>  outs, const QJsonValue & address, QVector<quint32> subpath={0,0,0},QString amountneedit="0");
 
 
 signals:
