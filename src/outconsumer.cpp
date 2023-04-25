@@ -19,13 +19,13 @@ void OutConsumer::consume(std::vector<qiota::Node_output>  outs, const QJsonValu
     QJsonArray aliasad;
     for(const auto& v: bundle.alias_outputs)
     {
-        aliasad.push_back(std::shared_ptr<qblocks::Address>(new Alias_Address(v->get_id()))->get_Json());
+        aliasad.push_back(Address::Alias(v->get_id())->get_Json());
     }
 
     QJsonArray nftad;
     for(const auto& v: bundle.nft_outputs)
     {
-        nftad.push_back(std::shared_ptr<qblocks::Address>(new NFT_Address(v->get_id()))->get_Json());
+        nftad.push_back(Address::NFT(v->get_id())->get_Json());
     }
 
     QJsonArray foundryid;
